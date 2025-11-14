@@ -3,4 +3,5 @@ pandas
 numpy
 pickle
 
-sk_learn
+sklearn
+
