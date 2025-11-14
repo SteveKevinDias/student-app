@@ -3,11 +3,26 @@ import pandas as pd
 import numpy as np
 import pickle
 from sklearn.preprocessing import StandardScaler,LabelEncoder
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
+#connection code
+uri = "mongodb+srv://Steve:Steve123@cluster0.gs1lvai.mongodb.net/?appName=Cluster0"
+client = MongoClient(uri, server_api=ServerApi('1'))
+
+#Create db
+db = client['student']
+#create collection
+collection = db["student-pred"]
+
 
 def load_model():
     with open("linear_reg1_proj.pkl","rb") as file:
         model,scaler,le =pickle.load(file) # file is going to return model,scaler and le
     return model,scaler,le
+
+#function to store data and prediction in mongodb
+
 
 def preprocessing_input_data(data,scaler,le):
     data['Extracurricular Activities']=le.transform([data['Extracurricular Activities']])[0]
@@ -42,6 +57,10 @@ def main():
         }
 
         prediction = predict_data(user_data)
+        #to insert each data and predictioon into mongodb
+        user_data['prediction'] = round(float(prediction[0]),2)
+        user_data = {key: int(value) if isinstance(value,np.integer) else float(value) if isinstance(value,np.floating) else value for key,value in user_data.items()}
+        collection.insert_one(user_data)
 
         st.success(f"Your prediction result is {prediction}")
 
