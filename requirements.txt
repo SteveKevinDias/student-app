@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 streamlit
 pandas
 numpy
 scikit-learn
 pymongo
+=======
+streamlit
+pandas
+numpy
+scikit-learn
+
+
+>>>>>>> 921b377bfab9cc6f2dcfa8c3eff24b6f01f8baeb
