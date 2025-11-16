@@ -5,13 +5,13 @@ import pickle
 from sklearn.preprocessing import StandardScaler,LabelEncoder
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-from dotenv import load_env
+from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
 #connection code
-uri = os.get_env("mongo_uri")
+uri = os.getenv("mongo_uri")
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 #Create db
