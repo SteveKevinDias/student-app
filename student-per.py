@@ -11,7 +11,7 @@ import os
 load_dotenv()
 
 #connection code
-uri = os.get_env(mongo_uri)
+uri = os.get_env("mongo_uri")
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 #Create db
